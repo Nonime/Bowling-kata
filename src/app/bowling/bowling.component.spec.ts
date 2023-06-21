@@ -22,8 +22,5 @@ describe('BowlingComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('effectueUnLancer', () => {
-    component.effectuerUnLancer();
-    expect(component.mancheEnCours.premierTire).toBeDefined()
-  });
+
 });

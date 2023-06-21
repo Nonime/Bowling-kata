@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Partie} from "../model/partie";
-import {Manche} from "../model/manche";
+import {Partie} from '../models/partie';
+import {Manche} from '../models/manche';
+import {BowlingService} from "../service/bowling.service";
 
 @Component({
   selector: 'app-bowling',
@@ -9,34 +10,21 @@ import {Manche} from "../model/manche";
 })
 export class BowlingComponent implements OnInit {
 
-  partieEnCours: Partie = {manches: []};
-  mancheEnCours: Manche = {};
-  constructor() { }
 
+  constructor(public readonly bowlingService: BowlingService) { }
   ngOnInit(): void {
   }
-
-  effectuerUnLancer() {
-    if (!this.mancheEnCours.premierTire) {
-      const scorePourUnTire = this.getScorePourUnTire();
-      let strick = scorePourUnTire == '10';
-      this.mancheEnCours.premierTire = strick ? 'X' : scorePourUnTire;
-      if (strick) {
-        this.nouvelleManche()
-      }
-    } else {
-      const scorePourLeDeuxiemeTire = this.getScorePourUnTire(parseInt(this.mancheEnCours.premierTire));
-
-
-    }
+  public getBilanDeLaManche(): string {
+    return JSON.stringify(this.bowlingService.mancheEnCours);
+  }
+  public getBilanDeLaPartie(): string {
+    return JSON.stringify(this.bowlingService.partieEnCours);
+  }
+  public getScore() {
+    return this.bowlingService.calculeLeScoreDunePartie(this.bowlingService.partieEnCours);
+  }
+  public clickSurLancer() {
+    this.bowlingService.effectuerUnLancer();
   }
 
-  private getScorePourUnTire(nombreDeQuilleRestantes: number = 10): string {
-    return (Math.random() * nombreDeQuilleRestantes).toString();
-  }
-
-  private nouvelleManche() {
-    this.partieEnCours.manches.push(this.mancheEnCours);
-    this.mancheEnCours = {};
-  }
 }

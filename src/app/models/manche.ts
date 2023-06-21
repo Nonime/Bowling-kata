@@ -1,5 +1,5 @@
 export interface Manche {
-  premierTire?: string,
-  deuxiemeTire?: string,
-  TroisiemeTire?: string,
+  premierTire?: number,
+  deuxiemeTire?: number,
+  TroisiemeTire?: number,
 }

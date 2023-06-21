@@ -1,3 +1,9 @@
-<p>bowling works!</p>
-{{this.partieEnCours}}
-<input type="button" value="Lancer" (click)="effectuerUnLancer()">
+<div>
+Manche En Cours: {{this.getBilanDeLaManche()}}
+</div><div>
+Partie En Cours: {{this.getBilanDeLaPartie()}}
+</div>
+<div>
+  Score: {{this.getScore()}}
+</div>
+<input type="button" value="Lancer" (click)="clickSurLancer()">
