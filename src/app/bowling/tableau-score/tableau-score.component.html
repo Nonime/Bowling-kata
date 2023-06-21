@@ -1,0 +1,12 @@
+Partie En Cours:
+<div *ngFor="let manche of this.manches;let i = index">
+  <div>
+    {{manche.premierTire}} | {{manche.deuxiemeTire}}
+    <div>
+      ----
+    </div>
+    <div>
+      {{this.scores[i]}}
+    </div>
+  </div>
+</div>

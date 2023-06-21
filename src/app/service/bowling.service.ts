@@ -6,12 +6,8 @@ import {Manche} from "../models/manche";
   providedIn: 'root'
 })
 export class BowlingService {
-  private nombreDeMultiplicateurs: number = 0;
   partieEnCours: Partie = {manches: []};
   mancheEnCours: Manche = {};
-
-  constructor() {
-  }
 
   public calculeLeScoreDunePartie(partie: Partie): number {
     return this.calculeLeScoreDeChaqueManches(partie).reduce((partialSum, a) => partialSum + a, 0);
@@ -43,6 +39,23 @@ export class BowlingService {
 
   }
 
+  effectuerUnLancer() {
+    if (this.mancheEnCours.premierTire == null) {
+      const scoreDuPremierTire = this.getScorePourUnTire();
+      this.mancheEnCours.premierTire = scoreDuPremierTire;
+      if (scoreDuPremierTire == 10) {
+        this.nouvelleManche();
+      }
+    } else {
+      this.mancheEnCours.deuxiemeTire = this.getScorePourUnTire(this.mancheEnCours.premierTire);
+      this.nouvelleManche()
+    }
+  }
+
+  public getNombreDeManches(): number {
+    return this.partieEnCours.manches.length;
+  }
+
   private ajouteLePremierTireSuivant(partie: Partie, index: number) {
     let mancheSuivante = partie.manches[index + 1];
     return mancheSuivante && mancheSuivante.premierTire ? mancheSuivante.premierTire : 0;
@@ -56,7 +69,6 @@ export class BowlingService {
     return value != undefined && value.premierTire && value?.deuxiemeTire && (value.premierTire + value.deuxiemeTire === 10);
   }
 
-
   private ajouteLeDeuxiemeTireSuivant(partie: Partie, index: number) {
     if (partie.manches[index + 1]) {
 
@@ -68,20 +80,6 @@ export class BowlingService {
       }
     }
     return 0;
-  }
-
-
-  effectuerUnLancer() {
-    if (this.mancheEnCours.premierTire == null) {
-      const scorePourUnTire = this.getScorePourUnTire();
-      this.mancheEnCours.premierTire = scorePourUnTire;
-      if (scorePourUnTire == 10) {
-        this.nouvelleManche();
-      }
-    } else {
-      this.mancheEnCours.deuxiemeTire = this.getScorePourUnTire(this.mancheEnCours.premierTire);
-      this.nouvelleManche()
-    }
   }
 
   private getScorePourUnTire(nombreDeQuilleDejaTomber: number = 0): number {

@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { BowlingComponent } from './bowling/bowling.component';
+import {AppComponent} from './app.component';
+import {BowlingComponent} from './bowling/bowling.component';
+import { TableauScoreComponent } from './bowling/tableau-score/tableau-score.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BowlingComponent
+    BowlingComponent,
+    TableauScoreComponent
   ],
   imports: [
     BrowserModule
@@ -15,4 +17,5 @@ import { BowlingComponent } from './bowling/bowling.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

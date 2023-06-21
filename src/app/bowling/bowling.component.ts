@@ -1,28 +1,32 @@
-import {Component, OnInit} from '@angular/core';
-import {Partie} from '../models/partie';
+import {Component} from '@angular/core';
 import {Manche} from '../models/manche';
 import {BowlingService} from "../service/bowling.service";
 
 @Component({
   selector: 'app-bowling',
-  templateUrl: './bowling.component.html',
-  styleUrls: ['./bowling.component.css']
+  templateUrl: './bowling.component.html'
 })
-export class BowlingComponent implements OnInit {
+export class BowlingComponent {
 
+  constructor(public readonly bowlingService: BowlingService) {
+  }
 
-  constructor(public readonly bowlingService: BowlingService) { }
-  ngOnInit(): void {
+  public getBilanDeLaPartie(): Manche[] {
+    return this.bowlingService.partieEnCours.manches;
   }
-  public getBilanDeLaManche(): string {
-    return JSON.stringify(this.bowlingService.mancheEnCours);
-  }
-  public getBilanDeLaPartie(): string {
-    return JSON.stringify(this.bowlingService.partieEnCours);
-  }
+
   public getScore() {
     return this.bowlingService.calculeLeScoreDunePartie(this.bowlingService.partieEnCours);
   }
+
+  public getScoreParManches() {
+    return this.bowlingService.calculeLeScoreDeChaqueManches(this.bowlingService.partieEnCours);
+  }
+
+  public getNombreDeManches() {
+    return this.bowlingService.getNombreDeManches();
+  }
+
   public clickSurLancer() {
     this.bowlingService.effectuerUnLancer();
   }

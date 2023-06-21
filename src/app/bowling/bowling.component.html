@@ -1,9 +1,7 @@
-<div>
-Manche En Cours: {{this.getBilanDeLaManche()}}
-</div><div>
-Partie En Cours: {{this.getBilanDeLaPartie()}}
-</div>
+<app-tableau-score [manches]="this.getBilanDeLaPartie()"
+                   [scores]="getScoreParManches()">
+</app-tableau-score>
 <div>
   Score: {{this.getScore()}}
 </div>
-<input type="button" value="Lancer" (click)="clickSurLancer()">
+<input (click)="clickSurLancer()" type="button" value="Lancer">
