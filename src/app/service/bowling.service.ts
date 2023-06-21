@@ -6,11 +6,19 @@ import {Manche} from "../models/manche";
   providedIn: 'root'
 })
 export class BowlingService {
-  partieEnCours: Partie = {manches: []};
-  mancheEnCours: Manche = {};
+  private _partieEnCours: Partie = {manches: []};
+  private _mancheEnCours: Manche = {};
 
   public calculeLeScoreDunePartie(partie: Partie): number {
     return this.calculeLeScoreDeChaqueManches(partie).reduce((partialSum, a) => partialSum + a, 0);
+  }
+
+  get partieEnCours(): Partie {
+    return this._partieEnCours;
+  }
+
+  get manches(): Manche {
+    return this._mancheEnCours;
   }
 
   public calculeLeScoreDeChaqueManches(partie: Partie): number[] {
@@ -40,20 +48,20 @@ export class BowlingService {
   }
 
   effectuerUnLancer() {
-    if (this.mancheEnCours.premierTire == null) {
+    if (this._mancheEnCours.premierTire == null) {
       const scoreDuPremierTire = this.getScorePourUnTire();
-      this.mancheEnCours.premierTire = scoreDuPremierTire;
+      this._mancheEnCours.premierTire = scoreDuPremierTire;
       if (scoreDuPremierTire == 10) {
         this.nouvelleManche();
       }
     } else {
-      this.mancheEnCours.deuxiemeTire = this.getScorePourUnTire(this.mancheEnCours.premierTire);
+      this._mancheEnCours.deuxiemeTire = this.getScorePourUnTire(this._mancheEnCours.premierTire);
       this.nouvelleManche()
     }
   }
 
   public getNombreDeManches(): number {
-    return this.partieEnCours.manches.length;
+    return this._partieEnCours.manches.length;
   }
 
   private ajouteLePremierTireSuivant(partie: Partie, index: number) {
@@ -88,7 +96,7 @@ export class BowlingService {
   }
 
   private nouvelleManche() {
-    this.partieEnCours.manches.push(this.mancheEnCours);
-    this.mancheEnCours = {};
+    this._partieEnCours.manches.push(this._mancheEnCours);
+    this._mancheEnCours = {};
   }
 }
