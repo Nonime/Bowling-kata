@@ -1,20 +1,25 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {BowlingComponent} from './bowling.component';
-import {TableauScoreComponent} from "./tableau-score/tableau-score.component";
-import {BowlingService} from "../service/bowling.service";
+import {TableauScoreComponent} from './tableau-score/tableau-score.component';
+import {BowlingService} from '../service/bowling.service';
 
 describe('BowlingComponent', () => {
   let component: BowlingComponent;
   let fixture: ComponentFixture<BowlingComponent>;
   let bowlingService: BowlingService;
   const valeurMockScore = 91;
+  const mockDeLaPartie = {manches: []};
+  const mockScoreParMaches = [5, 30, 20, 10, 5];
   const BowlingServiceMock = {
-    // get PartieEnCours: () => {return manches:[]},
-    getScore: jest.fn(() => {
+    partieEnCours: mockDeLaPartie,
+    calculeLeScoreDeChaqueManches: jest.fn(() => {
+      return mockScoreParMaches;
+    }),
+    calculeLeScoreDunePartie: jest.fn(() => {
       return valeurMockScore;
     }),
-    put: jest.fn(() => {
+    effectuerUnLancer: jest.fn(() => {
     })
   };
 
@@ -43,9 +48,25 @@ describe('BowlingComponent', () => {
   });
 
   it('getScore appel le bowling service', () => {
-    const spybowling = spyOn(bowlingService, 'calculeLeScoreDunePartie');
+    const spybowling = jest.spyOn(bowlingService, 'calculeLeScoreDunePartie');
     expect(component.getScore()).toBe(valeurMockScore);
-    expect(spybowling.calls.count()).toEqual(1);
+    expect(spybowling).toHaveBeenCalled();
+  });
+
+  it('getBilanDeLaPartie appel le bowling service', () => {
+    expect(component.getBilanDeLaPartie()).toBe(mockDeLaPartie.manches);
+  });
+
+  it('getScoreParManches appel le bowling service', () => {
+    const spybowling = jest.spyOn(bowlingService, 'calculeLeScoreDeChaqueManches');
+    expect(component.getScoreParManches()).toBe(mockScoreParMaches);
+    expect(spybowling).toHaveBeenCalled();
+  });
+
+  it('clickSurLancer appel le bowling service', () => {
+    const spybowling = jest.spyOn(bowlingService, 'effectuerUnLancer');
+    component.clickSurLancer();
+    expect(spybowling).toHaveBeenCalled();
   });
 
 });

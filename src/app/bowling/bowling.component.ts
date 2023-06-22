@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Manche} from '../models/manche';
-import {BowlingService} from "../service/bowling.service";
+import {BowlingService} from '../service/bowling.service';
 
 @Component({
   selector: 'app-bowling',
@@ -21,10 +21,6 @@ export class BowlingComponent {
 
   public getScoreParManches() {
     return this.bowlingService.calculeLeScoreDeChaqueManches(this.bowlingService.partieEnCours);
-  }
-
-  public getNombreDeManches() {
-    return this.bowlingService.getNombreDeManches();
   }
 
   public clickSurLancer() {

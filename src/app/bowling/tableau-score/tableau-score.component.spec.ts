@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TableauScoreComponent } from './tableau-score.component';
+import {TableauScoreComponent} from './tableau-score.component';
 
 describe('TableauScoreComponent', () => {
   let component: TableauScoreComponent;
@@ -8,9 +8,9 @@ describe('TableauScoreComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableauScoreComponent ]
+      declarations: [TableauScoreComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

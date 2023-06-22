@@ -9,6 +9,7 @@ describe('BowlingServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(BowlingService);
+    service.nouvellePartie();
   });
 
   it('should be created', () => {
@@ -20,7 +21,7 @@ describe('BowlingServiceService', () => {
     expect(service.calculeLeScoreDunePartie(partie)).toBe(9);
   });
 
-  it('Calcule le score pour un strick et une manches', () => {
+  it('Calcule le score pour un stricke et une manches', () => {
     const partie: Partie = {manches: [{premierTire: 10}, {premierTire: 8, deuxiemeTire: 1}]};
     expect(service.calculeLeScoreDunePartie(partie)).toBe(28);
   });
@@ -38,22 +39,22 @@ describe('BowlingServiceService', () => {
     expect(service.calculeLeScoreDunePartie(partie)).toBe(27);
   });
 
-  it('Calcule le score pour deux strick', () => {
+  it('Calcule le score pour deux stricke', () => {
     const partie: Partie = {manches: [{premierTire: 10}, {premierTire: 10}]};
     expect(service.calculeLeScoreDunePartie(partie)).toBe(30);
   });
 
-  it('Calcule le score pour deux strick et un tire', () => {
+  it('Calcule le score pour deux stricke et un tire', () => {
     const partie: Partie = {manches: [{premierTire: 10}, {premierTire: 10}, {premierTire: 8, deuxiemeTire: 2}]};
     expect(service.calculeLeScoreDeChaqueManches(partie).toString()).toBe([28, 20, 10].toString());
   });
 
-  it('Calcule le score pour deux strick et une manches', () => {
+  it('Calcule le score pour deux stricke et une manches', () => {
     const partie: Partie = {manches: [{premierTire: 10}, {premierTire: 10}, {premierTire: 8, deuxiemeTire: 1}]};
     expect(service.calculeLeScoreDunePartie(partie)).toBe(56);
   });
 
-  it('Calcule le score pour quatres strick et une  manches', () => {
+  it('Calcule le score pour quatres stricke et une  manches', () => {
     const partie: Partie = {
       manches: [{premierTire: 10}, {premierTire: 10}, {premierTire: 10}, {premierTire: 10}, {
         premierTire: 8,
@@ -65,6 +66,15 @@ describe('BowlingServiceService', () => {
 
   it('effectueUnLancer', () => {
     service.effectuerUnLancer();
-    expect(service.mancheEnCours.premierTire).toBeDefined()
+    expect(service.mancheEnCours.premierTire).toBeDefined();
   });
+
+  it('effectue deux lancer passe à la nouvelle manche', () => {
+    service.effectuerUnLancer();
+    service.effectuerUnLancer();
+    expect(service.mancheEnCours).toEqual({});
+    expect(service.partieEnCours.manches[0].premierTire).toBeDefined();
+    expect(service.partieEnCours.manches[0].deuxiemeTire).toBeDefined();
+  });
+
 });
