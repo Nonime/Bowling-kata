@@ -27,4 +27,8 @@ export class BowlingComponent {
     this.bowlingService.effectuerUnLancer();
   }
 
+  public clickSurNouvellePartie() {
+    this.bowlingService.nouvellePartie();
+  }
+
 }

@@ -20,6 +20,8 @@ describe('BowlingComponent', () => {
       return valeurMockScore;
     }),
     effectuerUnLancer: jest.fn(() => {
+    }),
+    nouvellePartie: jest.fn(() => {
     })
   };
 
@@ -66,6 +68,11 @@ describe('BowlingComponent', () => {
   it('clickSurLancer appel le bowling service', () => {
     const spybowling = jest.spyOn(bowlingService, 'effectuerUnLancer');
     component.clickSurLancer();
+    expect(spybowling).toHaveBeenCalled();
+  });
+  it('La fonction nouvelle partie appel le bowling service', () => {
+    const spybowling = jest.spyOn(bowlingService, 'nouvellePartie');
+    component.clickSurNouvellePartie();
     expect(spybowling).toHaveBeenCalled();
   });
 

@@ -1,7 +1,9 @@
-<app-tableau-score [manches]="this.getBilanDeLaPartie()"
+<app-tableau-score [manches]="getBilanDeLaPartie()"
                    [scores]="getScoreParManches()">
 </app-tableau-score>
 <div>
   Score: {{this.getScore()}}
 </div>
 <input (click)="clickSurLancer()" type="button" value="Lancer">
+<br/>
+<input (click)="clickSurNouvellePartie()" type="button" value="Nouvelle Partie">
